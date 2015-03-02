@@ -5,15 +5,32 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
+import fyales.com.tagcloud.library.TagCloudLayout;
+
 
 public class MainActivity extends ActionBarActivity {
-
+    TagCloudLayout container;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        container = (TagCloudLayout) findViewById(R.id.container);
+        ArrayList<String> list = new ArrayList<>();
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        container.addData(list);
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        container.invalidate();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
