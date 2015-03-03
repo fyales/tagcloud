@@ -22,6 +22,18 @@ public class MainActivity extends ActionBarActivity {
         list.add("two");
         list.add("three");
         list.add("four");
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
+        list.add("one");
+        list.add("two");
+        list.add("three");
+        list.add("four");
         container.addData(list);
 
     }
