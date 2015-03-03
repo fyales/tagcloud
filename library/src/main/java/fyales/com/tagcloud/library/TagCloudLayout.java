@@ -43,24 +43,24 @@ public class TagCloudLayout<T> extends LinearLayout {
     }
 
     public void drawLayout(){
-//        if (mTags == null ||mTags.size() == 0){
-//            return;
-//        }
-//        Log.e("fyales","mWidth is " + mWidth);
+        if (mTags == null ||mTags.size() == 0){
+            return;
+        }
+        Log.e("fyales","mWidth is " + mWidth);
 
-//        for (int i = 0 ;i < mTags.size();i++){
-//            if (mTags.get(i) instanceof String){
-//                TextView tv = new TextView(mContext);
-//                Log.e("fyales", tv.getWidth() + "");
-//                tv.setText((String)mTags.get(i));
-//                Log.e("fyales", tv.getWidth() + "");
-//                this.addView(tv);
-//            }else{
-//                TextView tv = new TextView(mContext);
-//                tv.setText(mTags.get(i).toString());
-//                this.addView(tv);
-//            }
-//        }
+        for (int i = 0 ;i < mTags.size();i++){
+            if (mTags.get(i) instanceof String){
+                TextView tv = new TextView(mContext);
+                Log.e("fyales", tv.getWidth() + "");
+                tv.setText((String)mTags.get(i));
+                Log.e("fyales", tv.getWidth() + "");
+                this.addView(tv);
+            }else{
+                TextView tv = new TextView(mContext);
+                tv.setText(mTags.get(i).toString());
+                this.addView(tv);
+            }
+        }
 
 
 
@@ -70,27 +70,6 @@ public class TagCloudLayout<T> extends LinearLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        mWidth = getWidth();
-        Log.e("fyales","mWidth is " + mWidth);
-//        if (mTags == null ||mTags.size() == 0){
-//            return;
-//        }
-//        Log.e("fyales","mWidth is " + mWidth);
-
-//        for (int i = 0 ;i < mTags.size();i++){
-//            if (mTags.get(i) instanceof String){
-//                TextView tv = new TextView(mContext);
-//                Log.e("fyales", tv.getWidth() + "");
-//                tv.setText((String)mTags.get(i));
-//                Log.e("fyales", tv.getWidth() + "");
-//                this.addView(tv);
-//            }else{
-//                TextView tv = new TextView(mContext);
-//                tv.setText(mTags.get(i).toString());
-//                this.addView(tv);
-//            }
-//        }
-
     }
 
 
