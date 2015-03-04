@@ -75,6 +75,8 @@ public class TagCloudLayout<T> extends ViewGroup {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int myWidth = resolveSize(0, widthMeasureSpec);
 
+        Log.e("fyales","the value of myWidth is " + myWidth );
+
         int paddingLeft = getPaddingLeft();
         int paddingTop = getPaddingTop();
         int paddingRight = getPaddingRight();

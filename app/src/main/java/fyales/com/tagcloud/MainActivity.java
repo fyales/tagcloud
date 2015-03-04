@@ -35,13 +35,13 @@ public class MainActivity extends ActionBarActivity {
         list.add("three");
         list.add("four");
         container.addData(list);
+        container.drawLayout();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        container.drawLayout();
     }
 
     @Override
