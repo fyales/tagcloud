@@ -1,2 +1,2 @@
 # tagcloud
-标签云(tag cloud)
+标签流式布局
