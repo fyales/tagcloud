@@ -1,121 +1,152 @@
 package fyales.com.tagcloud.library;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Button;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TagCloudLayout<T> extends ViewGroup {
 
+    private static final int DEFAULT_LINE_SPACING = 5;
+    private static final int DEFAULT_TAG_SPACING = 10;
+
     private List<T> mTags;
-    private int mWidth;
-    private Context mContext;
+    private List<Boolean> mChooses;
+    private int mLineSpacing;
+    private int mTagSpacing;
 
 
     public TagCloudLayout(Context context) {
         super(context);
-        this.mContext = context;
         init(null, 0);
     }
 
     public TagCloudLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.mContext = context;
         init(attrs, 0);
     }
 
     public TagCloudLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        this.mContext = context;
         init(attrs, defStyle);
     }
 
     private void init(AttributeSet attrs, int defStyle) {
+        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.TagCloudLayout);
+        try {
+            mLineSpacing = a.getDimensionPixelSize(R.styleable.TagCloudLayout_lineSpacing, DEFAULT_LINE_SPACING);
+            mTagSpacing = a.getDimensionPixelSize(R.styleable.TagCloudLayout_tagSpacing, DEFAULT_TAG_SPACING);
+        } finally {
+            a.recycle();
+        }
 
     }
 
-    public void addData(List<T> tags){
+    public void addData(List<T> tags) {
         this.mTags = tags;
+        mChooses = new ArrayList<>();
+        for (int i = 0; i < mTags.size(); i++) {
+            mChooses.add(i, false);
+        }
     }
 
-    public void drawLayout(){
-        if (mTags == null ||mTags.size() == 0){
+    public void drawLayout() {
+        if (mTags == null || mTags.size() == 0) {
             return;
         }
-        mWidth = getWidth();
-        Log.e("fyales","mWidth is " + mWidth);
 
-        for (int i = 0 ;i < mTags.size();i++){
-            if (mTags.get(i) instanceof String){
-                TextView tv = new TextView(mContext);
-                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                tv.setLayoutParams(params);
-                Log.e("fyales", tv.getWidth() + "");
-                tv.setText((String)mTags.get(i));
-                Log.e("fyales", tv.getWidth() + "");
-                this.addView(tv);
-            }else{
-                TextView tv = new TextView(mContext);
-                tv.setText(mTags.get(i).toString());
-                this.addView(tv);
+        for (int i = 0; i < mTags.size(); i++) {
+            String text;
+            if (mTags.get(i) instanceof String) {
+                text = (String) mTags.get(i);
+            } else {
+                text = mTags.get(i).toString();
             }
-        }
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.tagview,null);
+            Button btn = (Button) view.findViewById(R.id.tag_btn);
+            btn.setText(text);
+            final int j = i;
+            final Button tempBtn = btn;
+            btn.setOnClickListener(new OnClickListener() {
 
+                @Override
+                public void onClick(View v) {
+                    if (mChooses.get(j)) {
+                        mChooses.set(j,false);
+                        Log.e("fyales","the data is " + mChooses.get(j));
+                        tempBtn.setSelected(false);
+                        tempBtn.setTextColor(getResources().getColor(R.color.primary_text));
+                    } else {
+                        mChooses.set(j, true);
+                        Log.e("fyales","the data is " + mChooses.get(j));
+                        tempBtn.setSelected(true);
+                        tempBtn.setTextColor(getResources().getColor(R.color.white));
+                    }
+                }
+            });
+            this.addView(btn);
+
+        }
 
 
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int myWidth = resolveSize(0, widthMeasureSpec);
-
-        Log.e("fyales","the value of myWidth is " + myWidth );
+        int wantHeight = 0;
+        int wantWidth = resolveSize(0, widthMeasureSpec);
 
         int paddingLeft = getPaddingLeft();
-        int paddingTop = getPaddingTop();
         int paddingRight = getPaddingRight();
+        int paddingTop = getPaddingTop();
         int paddingBottom = getPaddingBottom();
 
         int childLeft = paddingLeft;
         int childTop = paddingTop;
-
         int lineHeight = 0;
 
-        // Measure each child and put the child to the right of previous child
-        // if there's enough room for it, otherwise, wrap the line and put the child to next line.
-        for (int i = 0, childCount = getChildCount(); i < childCount; ++i) {
-            View childView = getChildAt(i);
-            LayoutParams childLayoutParams = childView.getLayoutParams();
-            childView.measure(
-                    getChildMeasureSpec(widthMeasureSpec, paddingLeft + paddingRight, childLayoutParams.width),
-                    getChildMeasureSpec(heightMeasureSpec, paddingTop + paddingBottom, childLayoutParams.height));
-            int childWidth = childView.getMeasuredWidth();
-            int childHeight = childView.getMeasuredHeight();
+        for (int i = 0; i < getChildCount(); i++) {
+            final View childView = getChildAt(i);
+            if (childView.getVisibility() == View.GONE) {
+                continue;
+            }
 
+            LayoutParams params = childView.getLayoutParams();
+            childView.measure(
+                    getChildMeasureSpec(widthMeasureSpec, paddingLeft + paddingRight, params.width),
+                    getChildMeasureSpec(heightMeasureSpec, paddingTop + paddingBottom, params.height)
+            );
+
+            int childHeight = childView.getHeight();
+            int childWidth = childView.getWidth();
             lineHeight = Math.max(childHeight, lineHeight);
 
-            if (childLeft + childWidth + paddingRight > myWidth) {
+            if (childLeft + childWidth + paddingRight > wantWidth) {
                 childLeft = paddingLeft;
-                childTop += 20 + lineHeight;
+                childTop += mLineSpacing + childHeight;
                 lineHeight = childHeight;
             } else {
-                childLeft += childWidth + 10;
+                childLeft += childWidth + mTagSpacing;
             }
-        }
 
-        int wantedHeight = childTop + lineHeight + paddingBottom;
-        setMeasuredDimension(myWidth, resolveSize(wantedHeight, heightMeasureSpec));
+
+        }
+        wantHeight = childTop + lineHeight + paddingBottom;
+        setMeasuredDimension(wantWidth, resolveSize(wantHeight, heightMeasureSpec));
+
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int myWidth = r - l;
+        int width = r - l;
 
         int paddingLeft = getPaddingLeft();
         int paddingTop = getPaddingTop();
@@ -127,7 +158,8 @@ public class TagCloudLayout<T> extends ViewGroup {
         int lineHeight = 0;
 
         for (int i = 0, childCount = getChildCount(); i < childCount; ++i) {
-            View childView = getChildAt(i);
+
+            final View childView = getChildAt(i);
 
             if (childView.getVisibility() == View.GONE) {
                 continue;
@@ -135,29 +167,43 @@ public class TagCloudLayout<T> extends ViewGroup {
 
             int childWidth = childView.getMeasuredWidth();
             int childHeight = childView.getMeasuredHeight();
-
             lineHeight = Math.max(childHeight, lineHeight);
 
-            if (childLeft + childWidth + paddingRight > myWidth) {
+            if (childLeft + childWidth + paddingRight > width) {
                 childLeft = paddingLeft;
-                childTop += 20 + lineHeight;
+                childTop += mLineSpacing + lineHeight;
                 lineHeight = childHeight;
             }
 
             childView.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
-            childLeft += childWidth + 20;
+            childLeft += childWidth + mTagSpacing;
         }
+    }
+
+    public List<T> getChooseList(){
+        List<T> list = new ArrayList<>();
+        for (int i = 0;i< mTags.size();i++){
+            if(mChooses.get(i)){
+                list.add(mTags.get(i));
+            }
+        }
+        return list;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.e("fyales","TagCloudLayout--->onDraw");
+        Log.e("fyales", "TagCloudLayout--->onDraw");
         super.onDraw(canvas);
     }
 
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new LayoutParams(this.getContext(),attrs);
+        return new LayoutParams(this.getContext(), attrs);
+    }
+
+
+    public interface TagItemClickListener {
+        void itemClick(int position);
     }
 
 

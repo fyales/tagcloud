@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="TagCloudLayout">
+        <attr name="lineSpacing" format="dimension" />
+        <attr name="tagSpacing" format="dimension" />
+    </declare-styleable>
+</resources>

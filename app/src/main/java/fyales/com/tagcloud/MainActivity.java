@@ -2,8 +2,11 @@ package fyales.com.tagcloud;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -16,26 +19,33 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button btn = (Button) findViewById(R.id.test_btn);
         container = (TagCloudLayout) findViewById(R.id.container);
         ArrayList<String> list = new ArrayList<>();
         list.add("one");
         list.add("two");
         list.add("three");
         list.add("four");
+        list.add("ninkfnsadf");
+        list.add("fsadfsdgdsfasd");
+        list.add("fasdgsdagfsdafdsfsadfsadf");
+        list.add("adf");
         list.add("one");
         list.add("two");
-        list.add("three");
+        list.add("fads");
         list.add("four");
         list.add("one");
-        list.add("two");
-        list.add("three");
-        list.add("four");
-        list.add("one");
-        list.add("two");
+        list.add("fds");
         list.add("three");
         list.add("four");
         container.addData(list);
         container.drawLayout();
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("fyales", container.getChooseList().toString());
+            }
+        });
 
     }
 
