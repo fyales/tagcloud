@@ -14,36 +14,37 @@ import fyales.com.tagcloud.library.TagCloudLayout;
 
 
 public class MainActivity extends ActionBarActivity {
-    TagCloudLayout container;
+
+    TagCloudLayout mContainer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button btn = (Button) findViewById(R.id.test_btn);
-        container = (TagCloudLayout) findViewById(R.id.container);
+        mContainer = (TagCloudLayout) findViewById(R.id.container);
         ArrayList<String> list = new ArrayList<>();
         list.add("one");
-        list.add("two");
+        list.add("你好");
         list.add("three");
         list.add("four");
+        list.add("haha");
         list.add("ninkfnsadf");
         list.add("fsadfsdgdsfasd");
         list.add("fasdgsdagfsdafdsfsadfsadf");
         list.add("adf");
         list.add("one");
-        list.add("two");
+        list.add("fasdfadfa");
         list.add("fads");
-        list.add("four");
+        list.add("中国");
         list.add("one");
-        list.add("fds");
+        list.add("柴静");
         list.add("three");
         list.add("four");
-        container.addData(list);
-        container.drawLayout();
+        mContainer.addData(list);
+        mContainer.drawLayout();
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("fyales", container.getChooseList().toString());
             }
         });
 
