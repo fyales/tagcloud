@@ -16,6 +16,7 @@ import fyales.com.tagcloud.library.TagCloudLayout;
 public class MainActivity extends ActionBarActivity {
 
     TagCloudLayout mContainer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
