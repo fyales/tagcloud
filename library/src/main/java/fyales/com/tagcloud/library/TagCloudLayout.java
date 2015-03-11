@@ -20,35 +20,36 @@ import java.util.List;
  */
 public class TagCloudLayout<T> extends ViewGroup {
 
-    private static final int DEFAULT_LINE_SPACING = 5;
-    private static final int DEFAULT_TAG_SPACING = 10;
-
     private List<T> mTags;
     private List<Boolean> mChooses;
     private int mLineSpacing;
     private int mTagSpacing;
+    private final TagCloudConfiguration mConfig;
 
 
     public TagCloudLayout(Context context) {
         super(context);
+        this.mConfig = new TagCloudConfiguration(context,null);
         init(null, 0);
     }
 
     public TagCloudLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.mConfig = new TagCloudConfiguration(context,attrs);
         init(attrs, 0);
     }
 
     public TagCloudLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        this.mConfig = new TagCloudConfiguration(context,attrs);
         init(attrs, defStyle);
     }
 
     private void init(AttributeSet attrs, int defStyle) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.TagCloudLayout);
         try {
-            mLineSpacing = a.getDimensionPixelSize(R.styleable.TagCloudLayout_lineSpacing, DEFAULT_LINE_SPACING);
-            mTagSpacing = a.getDimensionPixelSize(R.styleable.TagCloudLayout_tagSpacing, DEFAULT_TAG_SPACING);
+            mLineSpacing = mConfig.getLineSpacing();
+            mTagSpacing = mConfig.getTagSpacing();
         } finally {
             a.recycle();
         }
@@ -195,7 +196,7 @@ public class TagCloudLayout<T> extends ViewGroup {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.e("fyales", "TagCloudLayout--->onDraw");
+        Log.d("fyales", "TagCloudLayout--->onDraw");
         super.onDraw(canvas);
     }
 
