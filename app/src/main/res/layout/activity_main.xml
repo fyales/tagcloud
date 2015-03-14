@@ -13,6 +13,8 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tagMaxCount="5"
+        app:tagMinCount="1"
         app:tagSpacing="15dp"
         app:lineSpacing="10dp"/>
     <Button

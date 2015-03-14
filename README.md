@@ -7,11 +7,15 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tagMaxCount="5"
+        app:tagMinCount="1"
         app:tagSpacing="15dp"
         app:lineSpacing="10dp"/>
         
 * tagSpacing属性:各个标签之间的距离
 * lineSpacing属性:行间距
+* tagMaxCount:标签的最大数量
+* tagMinCount:标签的最小数量
 
 Java代码
 
