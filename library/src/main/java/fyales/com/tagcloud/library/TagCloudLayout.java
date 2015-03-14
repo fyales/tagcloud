@@ -95,7 +95,7 @@ public class TagCloudLayout<T> extends ViewGroup {
                         mChooses.set(j,false);
                         Log.e("fyales", "the data is " + mChooses.get(j));
                         tempBtn.setSelected(false);
-                        tempBtn.setTextColor(getResources().getColor(R.color.primary));
+                        tempBtn.setTextColor(getResources().getColor(R.color.primary_text));
                     } else {
                         if (overMaxCount()){
                             return;
@@ -109,6 +109,7 @@ public class TagCloudLayout<T> extends ViewGroup {
                 }
             });
             this.addView(btn);
+            Log.e("fyales","It is addView");
 
         }
 
@@ -129,7 +130,10 @@ public class TagCloudLayout<T> extends ViewGroup {
         int childTop = paddingTop;
         int lineHeight = 0;
 
+        Log.e("fyales","the count is " + getChildCount());
+
         for (int i = 0; i < getChildCount(); i++) {
+            Log.e("fyales","onMeasure-->the i is " + i);
             final View childView = getChildAt(i);
             if (childView.getVisibility() == View.GONE) {
                 continue;
@@ -149,13 +153,12 @@ public class TagCloudLayout<T> extends ViewGroup {
                 childLeft = paddingLeft;
                 childTop += mLineSpacing + childHeight;
                 lineHeight = childHeight;
-            } else {
-                childLeft += childWidth + mTagSpacing;
+                Log.e("fyales","onMeasure-->the childTop is " + childTop);
+
             }
-
-
+            childLeft += childWidth + mTagSpacing;
         }
-        wantHeight = childTop + lineHeight + paddingBottom;
+        wantHeight += childTop + lineHeight + paddingBottom;
         setMeasuredDimension(wantWidth, resolveSize(wantHeight, heightMeasureSpec));
 
     }
@@ -173,10 +176,9 @@ public class TagCloudLayout<T> extends ViewGroup {
 
         int lineHeight = 0;
 
-        for (int i = 0, childCount = getChildCount(); i < childCount; ++i) {
-
+        for (int i = 0; i < getChildCount(); i++) {
+            Log.e("fyales","onLayout-->the i is " + i);
             final View childView = getChildAt(i);
-
             if (childView.getVisibility() == View.GONE) {
                 continue;
             }
@@ -189,6 +191,7 @@ public class TagCloudLayout<T> extends ViewGroup {
                 childLeft = paddingLeft;
                 childTop += mLineSpacing + lineHeight;
                 lineHeight = childHeight;
+                Log.e("fyales","onLayout -->the childTop is " + childTop);
             }
 
             childView.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
