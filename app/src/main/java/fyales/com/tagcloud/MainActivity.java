@@ -43,6 +43,8 @@ public class MainActivity extends ActionBarActivity {
         list.add("four");
         mContainer.addData(list);
         mContainer.drawLayout();
+
+        mContainer.getChooseList(); //获取选择的标签数量
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
