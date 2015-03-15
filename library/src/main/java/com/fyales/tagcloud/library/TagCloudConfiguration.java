@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 
 /**
  * @author fyales
- * @date 11/3/15
+ * @since date 11/3/15
  */
 public class TagCloudConfiguration {
 
