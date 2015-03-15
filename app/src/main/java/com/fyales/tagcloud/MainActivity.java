@@ -1,16 +1,18 @@
-package fyales.com.tagcloud;
+package com.fyales.tagcloud;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
 
-import fyales.com.tagcloud.library.TagCloudLayout;
+import com.fyales.tagcloud.library.TagCloudLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class MainActivity extends ActionBarActivity {
@@ -23,7 +25,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         Button btn = (Button) findViewById(R.id.test_btn);
         mContainer = (TagCloudLayout) findViewById(R.id.container);
-        ArrayList<String> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         list.add("one");
         list.add("你好");
         list.add("three");

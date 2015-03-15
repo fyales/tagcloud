@@ -1,4 +1,4 @@
-package fyales.com.tagcloud.library;
+package com.fyales.tagcloud.library;
 
 import android.content.Context;
 import android.content.res.TypedArray;
