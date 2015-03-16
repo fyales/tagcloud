@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +99,7 @@ public class TagCloudLayout<T> extends ViewGroup {
                         tempBtn.setTextColor(getResources().getColor(R.color.primary_text));
                     } else {
                         if (overMaxCount()){
+                            Toast.makeText(getContext(),"最多可以选择" + mMaxTagCount + "个标签",Toast.LENGTH_SHORT).show();
                             return;
                         }
                         mChooseTagCount++;
