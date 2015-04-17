@@ -21,11 +21,6 @@ import java.util.List;
  */
 public class TagCloudLayout<T> extends ViewGroup {
 
-    private static final int DEFAULT_LINE_SPACING = 5;
-    private static final int DEFAULT_TAG_SPACING = 10;
-    private static final int DEFAULT_TAG_MIN_NUMBER = 0;
-    private static final int DEFAULT_TAG_MAX_NUMBER = 100;
-
     private List<T> mTags;
     private List<Boolean> mChooses;
     private int mLineSpacing;
@@ -33,33 +28,29 @@ public class TagCloudLayout<T> extends ViewGroup {
     private int mMaxTagCount;
     private int mMinTagCount;
     private int mChooseTagCount;
+    private TagCloudConfiguration mConfig;
 
     public TagCloudLayout(Context context) {
         super(context);
-        init(null, 0);
+        init(context,null, 0);
     }
 
     public TagCloudLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(attrs, 0);
+        init(context,attrs, 0);
     }
 
     public TagCloudLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(attrs, defStyle);
+        init(context,attrs, defStyle);
     }
 
-    private void init(AttributeSet attrs, int defStyle) {
-        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.TagCloudLayout);
-        try {
-            mLineSpacing = a.getDimensionPixelSize(R.styleable.TagCloudLayout_lineSpacing, DEFAULT_LINE_SPACING);
-            mTagSpacing = a.getDimensionPixelSize(R.styleable.TagCloudLayout_tagSpacing, DEFAULT_TAG_SPACING);
-            mMaxTagCount= a.getInteger(R.styleable.TagCloudLayout_tagMaxCount, DEFAULT_TAG_MAX_NUMBER);
-            mMinTagCount = a.getInteger(R.styleable.TagCloudLayout_tagMinCount, DEFAULT_TAG_MIN_NUMBER);
-        } finally {
-            a.recycle();
-        }
-
+    private void init(Context context,AttributeSet attrs, int defStyle) {
+        mConfig = new TagCloudConfiguration(context,attrs);
+        mLineSpacing = mConfig.getLineSpacing();
+        mTagSpacing = mConfig.getTagSpacing();
+        mMaxTagCount = mConfig.getTagMaxNumber();
+        mMinTagCount = mConfig.getTagMinNumber();
     }
 
     public void addData(List<T> tags) {
@@ -94,7 +85,6 @@ public class TagCloudLayout<T> extends ViewGroup {
                     if (mChooses.get(j)) {
                         mChooseTagCount--;
                         mChooses.set(j,false);
-                        Log.e("fyales", "the data is " + mChooses.get(j));
                         tempBtn.setSelected(false);
                         tempBtn.setTextColor(getResources().getColor(R.color.primary_text));
                     } else {
@@ -104,14 +94,12 @@ public class TagCloudLayout<T> extends ViewGroup {
                         }
                         mChooseTagCount++;
                         mChooses.set(j,true);
-                        Log.e("fyales", "the data is " + mChooses.get(j));
                         tempBtn.setSelected(true);
                         tempBtn.setTextColor(getResources().getColor(R.color.white));
                     }
                 }
             });
             this.addView(btn);
-            Log.e("fyales","It is addView");
 
         }
 
@@ -211,9 +199,11 @@ public class TagCloudLayout<T> extends ViewGroup {
         return list;
     }
 
+
+
+
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.e("fyales", "TagCloudLayout--->onDraw");
         super.onDraw(canvas);
     }
 
@@ -229,9 +219,18 @@ public class TagCloudLayout<T> extends ViewGroup {
 
     /**
      * 判断是否超过可以选择的最大标签数量
-     * @return
+     * @return boolean
      */
     private boolean overMaxCount(){
-        return (mChooseTagCount >= mMaxTagCount )? true : false;
+        return mChooseTagCount > mMaxTagCount;
+    }
+
+
+    /**
+     * 判断是否小于最小标签数量
+     * @return boolean
+     */
+    private boolean belowMinCount(){
+        return mChooseTagCount < mMinTagCount;
     }
 }
