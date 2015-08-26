@@ -4,11 +4,11 @@
     android:layout_height="wrap_content"
     android:background="@drawable/tag_view"
     android:id="@+id/tag_btn"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    android:minHeight="30dp"
+    android:minHeight="36dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:minWidth="45dp"
     android:gravity="center"
-    android:textSize="16dp">
-
+    android:text="@string/tag_text"
+    android:textSize="16sp">
 </Button>

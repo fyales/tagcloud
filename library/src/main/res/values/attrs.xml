@@ -2,7 +2,5 @@
     <declare-styleable name="TagCloudLayout">
         <attr name="lineSpacing" format="dimension" />
         <attr name="tagSpacing" format="dimension" />
-        <attr name="tagMaxCount" format="integer" />
-        <attr name="tagMinCount" format="integer" />
     </declare-styleable>
 </resources>
