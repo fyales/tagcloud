@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import com.fyales.tagcloud.library.TagBaseAdapter;
@@ -22,7 +23,14 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btn = (Button) findViewById(R.id.test_btn);
+        Button btn = (Button) findViewById(R.id.add_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mList.add("美利坚合众国");
+                mAdapter.notifyDataSetChanged();
+            }
+        });
         mContainer = (TagCloudLayout) findViewById(R.id.container);
         mList = new ArrayList<>();
         mList.add("中华人名共和国");
@@ -78,4 +86,5 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -1,21 +1,12 @@
 package com.fyales.tagcloud.library;
 
 import android.content.Context;
-import android.content.res.TypedArray;
+import android.database.DataSetObserver;
 import android.graphics.Canvas;
-import android.os.AsyncTask;
-import android.os.HandlerThread;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 标签流容器
@@ -23,12 +14,13 @@ import java.util.List;
  * @author fyales
  * @since date 2015-03-04
  */
-public class TagCloudLayout<T> extends ViewGroup {
+public class TagCloudLayout extends ViewGroup {
 
     private int mLineSpacing;
     private int mTagSpacing;
     private BaseAdapter mAdapter;
     private TagItemClickListener mListener;
+    private DataChangeObserver mObserver;
 
     public TagCloudLayout(Context context) {
         super(context);
@@ -55,6 +47,8 @@ public class TagCloudLayout<T> extends ViewGroup {
         if (mAdapter == null || mAdapter.getCount() == 0) {
             return;
         }
+
+        this.removeAllViews();
 
         for (int i = 0; i < mAdapter.getCount(); i++) {
             View view = mAdapter.getView(i,null,null);
@@ -152,6 +146,10 @@ public class TagCloudLayout<T> extends ViewGroup {
     public void setAdapter(BaseAdapter adapter){
         if (mAdapter == null){
             mAdapter = adapter;
+            if (mObserver == null){
+                mObserver = new DataChangeObserver();
+                mAdapter.registerDataSetObserver(mObserver);
+            }
             drawLayout();
         }
     }
@@ -163,4 +161,17 @@ public class TagCloudLayout<T> extends ViewGroup {
     public interface TagItemClickListener {
         void itemClick(int position);
     }
+
+    class DataChangeObserver extends DataSetObserver{
+        @Override
+        public void onChanged() {
+            TagCloudLayout.this.drawLayout();
+        }
+
+        @Override
+        public void onInvalidated() {
+            super.onInvalidated();
+        }
+    }
+
 }
