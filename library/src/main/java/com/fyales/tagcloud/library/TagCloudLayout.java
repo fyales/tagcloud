@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -56,7 +57,7 @@ public class TagCloudLayout extends ViewGroup {
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mListener != null){
+                    if (mListener != null) {
                         mListener.itemClick(position);
                     }
                 }
@@ -79,9 +80,6 @@ public class TagCloudLayout extends ViewGroup {
 
         for (int i = 0; i < getChildCount(); i++) {
             final View childView = getChildAt(i);
-            if (childView.getVisibility() == View.GONE) {
-                continue;
-            }
             LayoutParams params = childView.getLayoutParams();
             childView.measure(
                     getChildMeasureSpec(widthMeasureSpec, paddingLeft + paddingRight, params.width),
@@ -100,6 +98,7 @@ public class TagCloudLayout extends ViewGroup {
             childLeft += childWidth + mTagSpacing;
         }
         wantHeight += childTop + lineHeight + paddingBottom;
+        Log.e("fyales","the want height is " + wantHeight);
         setMeasuredDimension(wantWidth, resolveSize(wantHeight, heightMeasureSpec));
     }
 
@@ -131,11 +130,14 @@ public class TagCloudLayout extends ViewGroup {
             childView.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
             childLeft += childWidth + mTagSpacing;
         }
+        Log.e("fyales","the lineHeight is " + lineHeight);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        int i = 0;
+        Log.e("fyales","haha,i am on Draw" + i++);
     }
 
     @Override
