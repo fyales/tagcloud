@@ -23,12 +23,12 @@
         android:layout_height="wrap_content"
         app:tagSpacing="15dp"
         app:lineSpacing="10dp"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/container"
-        android:id="@+id/add_btn"
-        android:text="添加国家"/>
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/container"-->
+        <!--android:id="@+id/add_btn"-->
+        <!--android:text="添加国家"/>-->
 
 
 </RelativeLayout>
