@@ -7,41 +7,41 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tagMaxCount="5"
-        app:tagMinCount="1"
         app:tagSpacing="15dp"
         app:lineSpacing="10dp"/>
         
 * tagSpacing属性:各个标签之间的距离
 * lineSpacing属性:行间距
-* tagMaxCount:标签的最大数量
-* tagMinCount:标签的最小数量
 
 Java代码
 
-		mContainer = (TagCloudLayout) findViewById(R.id.container);
-        ArrayList<String> list = new ArrayList<>();
-        list.add("one");
-        list.add("你好");
-        list.add("three");
-        list.add("four");
-        list.add("haha");
-        list.add("ninkfnsadf");
-        list.add("fsadfsdgdsfasd");
-        list.add("fasdgsdagfsdafdsfsadfsadf");
-        list.add("adf");
-        list.add("one");
-        list.add("fasdfadfa");
-        list.add("fads");
-        list.add("中国");
-        list.add("one");
-        list.add("柴静");
-        list.add("three");
-        list.add("four");
-        mContainer.addData(list);
-        mContainer.drawLayout();
-        mContainer.getChooseList(); //获取选择的标签数量
-
+        mContainer = (TagCloudLayout) findViewById(R.id.container);
+        mList = new ArrayList<>();
+        mList.add("中华人名共和国");
+        mList.add("大韩民国");
+        mList.add("日本");
+        mList.add("朝鲜");
+        mList.add("台湾");
+        mList.add("香港特别行政区");
+        mList.add("澳门特别行政区");
+        mList.add("越南");
+        mList.add("老挝");
+        mList.add("柬埔寨");
+        mList.add("泰国");
+        mList.add("缅甸");
+        mList.add("马来西亚");
+        mList.add("新加坡");
+        mList.add("印度尼西亚");
+        mList.add("文莱");
+        mList.add("菲律宾");
+        mAdapter = new TagBaseAdapter(this,mList);
+        mContainer.setAdapter(mAdapter);
+        mContainer.setItemClickListener(new TagCloudLayout.TagItemClickListener() {
+            @Override
+            public void itemClick(int position) {
+                Toast.makeText(MainActivity.this,mList.get(position),Toast.LENGTH_SHORT).show();
+            }
+        });
         
 
 ### 实现效果
@@ -52,6 +52,13 @@ Java代码
 	dependencies {
     	compile 'com.fyales.android:library:1.0.1'
 	}
+	
+### 1.0.2更新
+* 允许用户自定义,自己写一个adapter即可
+* 重构代码
+
+### 问题
+目前无法解决mAdapter.notifyDataSetChanged()导致页面重绘无法得到预期结果的问题.
 
 
 
