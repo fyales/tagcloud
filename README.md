@@ -35,6 +35,13 @@ Java代码
         mList.add("文莱");
         mList.add("菲律宾");
         mAdapter = new TagBaseAdapter(this,mList);
+        findViewById(R.id.add_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mList.add("东帝汶");
+                mAdapter.notifyDataSetChanged();
+            }
+        });
         mContainer.setAdapter(mAdapter);
         mContainer.setItemClickListener(new TagCloudLayout.TagItemClickListener() {
             @Override
@@ -57,8 +64,6 @@ Java代码
 * 允许用户自定义,自己写一个adapter即可
 * 重构代码
 
-### 问题
-目前无法解决mAdapter.notifyDataSetChanged()导致页面重绘无法得到预期结果的问题.
 
 
 
