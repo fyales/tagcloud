@@ -85,8 +85,8 @@ public class TagCloudLayout extends ViewGroup {
                     getChildMeasureSpec(widthMeasureSpec, paddingLeft + paddingRight, params.width),
                     getChildMeasureSpec(heightMeasureSpec, paddingTop + paddingBottom, params.height)
             );
-            int childHeight = childView.getHeight();
-            int childWidth = childView.getWidth();
+            int childHeight = childView.getMeasuredHeight();
+            int childWidth = childView.getMeasuredWidth();
             lineHeight = Math.max(childHeight, lineHeight);
 
             if (childLeft + childWidth + paddingRight > wantWidth) {
@@ -134,7 +134,6 @@ public class TagCloudLayout extends ViewGroup {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int i = 0;
     }
 
     @Override

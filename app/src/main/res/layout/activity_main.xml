@@ -13,8 +13,6 @@
     自定义属性解释:
         tagSpacing:各个标签之间的距离
         lineSpacing:行间距
-        tagMaxCount:标签的最大数量
-        tagMinCount:标签的最小数量
     -->
 
     <com.fyales.tagcloud.library.TagCloudLayout
@@ -23,12 +21,12 @@
         android:layout_height="wrap_content"
         app:tagSpacing="15dp"
         app:lineSpacing="10dp"/>
-    <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/container"-->
-        <!--android:id="@+id/add_btn"-->
-        <!--android:text="添加国家"/>-->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/container"
+        android:id="@+id/add_btn"
+        android:text="添加国家"/>
 
 
 </RelativeLayout>

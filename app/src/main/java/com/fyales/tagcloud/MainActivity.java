@@ -24,6 +24,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContainer = (TagCloudLayout) findViewById(R.id.container);
+
         mList = new ArrayList<>();
         mList.add("中华人名共和国");
         mList.add("大韩民国");
@@ -44,7 +45,13 @@ public class MainActivity extends ActionBarActivity {
         mList.add("菲律宾");
         mAdapter = new TagBaseAdapter(this,mList);
         mContainer.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
+        findViewById(R.id.add_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mList.add("东帝汶");
+                mAdapter.notifyDataSetChanged();
+            }
+        });
         mContainer.setItemClickListener(new TagCloudLayout.TagItemClickListener() {
             @Override
             public void itemClick(int position) {
