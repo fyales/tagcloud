@@ -57,7 +57,7 @@ Java代码
 ### gradle引用(仓库为JCenter)
 
 	dependencies {
-    	compile 'com.fyales.android:library:1.0.1'
+    	compile 'com.fyales.android:library:1.0.2'
 	}
 	
 ### 1.0.2更新
