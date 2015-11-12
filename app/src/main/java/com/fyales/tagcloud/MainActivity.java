@@ -45,6 +45,7 @@ public class MainActivity extends ActionBarActivity {
         mList.add("菲律宾");
         mAdapter = new TagBaseAdapter(this,mList);
         mContainer.setAdapter(mAdapter);
+
         findViewById(R.id.add_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +53,7 @@ public class MainActivity extends ActionBarActivity {
                 mAdapter.notifyDataSetChanged();
             }
         });
+
         mContainer.setItemClickListener(new TagCloudLayout.TagItemClickListener() {
             @Override
             public void itemClick(int position) {
