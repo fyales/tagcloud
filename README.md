@@ -17,7 +17,7 @@ Java代码
 
         mContainer = (TagCloudLayout) findViewById(R.id.container);
         mList = new ArrayList<>();
-        mList.add("中华人民共和国");
+        mList.add("中华人民共和国");
         mList.add("大韩民国");
         mList.add("日本");
         mList.add("朝鲜");
